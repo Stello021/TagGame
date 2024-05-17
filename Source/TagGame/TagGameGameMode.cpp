@@ -5,6 +5,7 @@
 #include "Engine/World.h"
 #include "EngineUtils.h"
 #include "UObject/ConstructorHelpers.h"
+#include "EnemyAIController.h"
 
 
 ATagGameGameMode::ATagGameGameMode()
@@ -36,6 +37,7 @@ void ATagGameGameMode::Tick(float DeltaTime)
 			return;
 		}
 	}
+	ResetMatch();
 
 }
 
@@ -53,7 +55,8 @@ void ATagGameGameMode::ResetMatch()
 	{
 		if (It->GetAttachParentActor())
 		{
-			It->AttachToActor(nullptr, FAttachmentTransformRules::KeepWorldTransform);
+			It->SetActorRelativeLocation(FVector::Zero());
+			It->DetachFromActor(FDetachmentTransformRules::KeepRelativeTransform);
 		}
 
 		GameBalls.Add(*It);
@@ -67,6 +70,11 @@ void ATagGameGameMode::ResetMatch()
 		GameBalls[i]->SetActorLocation(RandomTargetPoints[RandomTargetIndex]->GetActorLocation());
 		RandomTargetPoints.RemoveAt(RandomTargetIndex);
 
+	}
+
+	for (TActorIterator<AEnemyAIController> It(GetWorld()); It; ++It)
+	{
+		It->BeginPlay();
 	}
 }
 

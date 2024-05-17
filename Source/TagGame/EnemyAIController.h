@@ -84,8 +84,14 @@ protected:
 	TSharedPtr<FAIVState> GoToBall;
 	TSharedPtr<FAIVState> GrabBall;
 
-	void BeginPlay() override;
 	void Tick(float DeltaTime) override;
 	ABall* BestBall;
+
+	UBlackboardData* BlackboardAsset;
+	UBlackboardComponent* BlackboardComponent;
+
+public:
+	void BeginPlay() override;
+	void GetNearestBall(AAIController* AIController);
 	
 };
