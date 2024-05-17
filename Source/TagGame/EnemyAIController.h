@@ -35,7 +35,7 @@ public:
 	FAIVState(FAIVState&& Other) = delete;
 	FAIVState& operator=(FAIVState&& Other) = delete;
 
-	void CallEnter(AAIController* AIController) const
+	void CallEnter(AAIController* AIController) 
 	{
 		if (Enter)
 		{
@@ -43,7 +43,7 @@ public:
 		}
 	}
 
-	void CallExit(AAIController* AIController) const
+	void CallExit(AAIController* AIController) 
 	{
 		if (Exit)
 		{
