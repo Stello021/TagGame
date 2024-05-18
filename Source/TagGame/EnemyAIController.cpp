@@ -106,8 +106,9 @@ void AEnemyAIController::BeginPlay()
 			return GoToPlayer;
 		}
 	);
-	CurrentState = SearchForBall;
-	CurrentState->CallEnter(this);
+
+	ResetStateMachine();
+
 }
 
 void AEnemyAIController::Tick(float DeltaTime)
@@ -142,4 +143,10 @@ void AEnemyAIController::GetNearestBall(AAIController* AIController)
 	}
 	BlackboardComponent->SetValueAsObject("NearestBall", NearestBall);
 	BestBall = Cast<ABall>(BlackboardComponent->GetValueAsObject("NearestBall"));
+}
+
+void AEnemyAIController::ResetStateMachine()
+{
+	CurrentState = SearchForBall;
+	CurrentState->CallEnter(this);
 }

@@ -38,6 +38,10 @@ void ATagGameGameMode::Tick(float DeltaTime)
 		}
 	}
 	ResetMatch();
+	for (TActorIterator<AEnemyAIController> It(GetWorld()); It; ++It)
+	{
+		It->ResetStateMachine();
+	}
 
 }
 
@@ -70,11 +74,6 @@ void ATagGameGameMode::ResetMatch()
 		GameBalls[i]->SetActorLocation(RandomTargetPoints[RandomTargetIndex]->GetActorLocation());
 		RandomTargetPoints.RemoveAt(RandomTargetIndex);
 
-	}
-
-	for (TActorIterator<AEnemyAIController> It(GetWorld()); It; ++It)
-	{
-		It->BeginPlay();
 	}
 }
 
